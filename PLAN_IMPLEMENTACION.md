@@ -25,8 +25,8 @@
 
 Este documento detalla el plan de implementación para el MVP de Ekko 2 Care, basado en el PRD v1.0. El objetivo es completar un MVP funcional en 2 semanas que cumpla con los requisitos de navegación y acceso básico del usuario.
 
-**Estado Actual:** ✅ Setup inicial completado | ✅ Sistema de diseño completado | ✅ Componentes base completados  
-**Próximo Paso:** Páginas principales (Login, Register, Home)
+**Estado Actual:** ✅ Setup inicial completado | ✅ Sistema de diseño completado | ✅ Componentes base completados | ✅ Páginas principales completadas  
+**Próximo Paso:** Navegación y routing (Fase 5)
 
 ---
 
@@ -264,113 +264,152 @@ components/
 ## 📱 Fase 4: Páginas Principales (MVP)
 
 **Duración:** Día 4-7  
-**Estado:** ⏳ PENDIENTE
+**Estado:** ✅ COMPLETADO
 
 ### Objetivos:
 - Implementar todas las páginas del MVP según PRD
 - Asegurar navegación entre páginas
 - UI estática funcional (sin backend)
 
-### Páginas a Implementar:
+### Páginas Completadas:
 
 #### 4.1 Página de Login (`app/(auth)/login/page.tsx`)
-- [ ] Formulario de login
-  - Campo email
-  - Campo contraseña
-  - Botón "Iniciar Sesión" (Primary)
+- [x] Formulario de login ✅
+  - Campo email (Input component)
+  - Campo contraseña (Input component)
+  - Botón "Iniciar Sesión" (Button Primary)
   - Link a "Registrarse"
-- [ ] Diseño mobile-first
-- [ ] Validación básica de campos (frontend)
-- [ ] Navegación a Register y Home (después de "login")
+- [x] Diseño mobile-first ✅
+- [x] Validación básica de campos (frontend) ✅
+- [x] Navegación a Register y Home (después de "login" - mock) ✅
 
 #### 4.2 Página de Registro (`app/(auth)/register/page.tsx`)
-- [ ] Formulario de registro
-  - Campo nombre
-  - Campo email
-  - Campo contraseña
-  - Campo confirmar contraseña
-  - Botón "Registrarse" (Primary)
+- [x] Formulario de registro ✅
+  - Campo nombre (Input component)
+  - Campo email (Input component)
+  - Campo contraseña (Input component)
+  - Campo confirmar contraseña (Input component)
+  - Botón "Registrarse" (Button Primary)
   - Link a "Iniciar Sesión"
-- [ ] Diseño mobile-first
-- [ ] Validación básica de campos
-- [ ] Navegación a Login y Home (después de "registro")
+- [x] Diseño mobile-first ✅
+- [x] Validación básica de campos ✅
+- [x] Navegación a Login y Home (después de "registro" - mock) ✅
 
-#### 4.3 Página Principal - Home (`app/home/page.tsx`)
-- [ ] Header con información del usuario
-- [ ] Sección "Recientemente Vistos"
-  - Grid de ProductCards
-  - Scroll horizontal o vertical
-- [ ] Sección "Recomendados"
-  - Grid de ProductCards
-- [ ] Sección "Chats Activos"
-  - Lista de conversaciones
+#### 4.3 Página Principal - Home (`app/(protected)/home/page.tsx`)
+- [x] Header con información del usuario (Avatar, nombre) ✅
+- [x] Sección "Recientemente Vistos" ✅
+  - Grid de ProductCards (datos mock)
+  - Navegación a detalles de producto
+- [x] Sección "Recomendados" ✅
+  - Grid de ProductCards (datos mock)
+- [x] Sección "Chats Activos" ✅
+  - Lista de conversaciones (datos mock)
   - Preview del último mensaje
-- [ ] NavBar fija en la parte inferior
-
-#### 4.4 Página de Búsqueda (`app/search/page.tsx`)
-- [ ] Barra de búsqueda en la parte superior
-  - Input de búsqueda
-  - Botón de búsqueda o búsqueda en tiempo real
-- [ ] Filtros (opcional para MVP)
-- [ ] Resultados de búsqueda
-  - Grid de ProductCards
-  - Paginación o scroll infinito (básico)
-- [ ] Estado vacío (sin resultados)
-
-#### 4.5 Página de Detalles de Producto (`app/product/[id]/page.tsx`)
-- [ ] Imagen principal del producto
-  - Carousel de imágenes (si hay múltiples)
-- [ ] Información del producto
-  - Título
-  - Descripción
-  - Precio/Estado
-  - Ubicación
-- [ ] Información del vendedor
-  - Avatar y nombre
-  - Link a perfil
-- [ ] Sección "Productos Similares"
-  - Grid de ProductCards
-- [ ] Botón de acción (Contactar, Intercambiar, etc.)
-
-#### 4.6 Página de Chat (`app/chat/[id]/page.tsx`)
-- [ ] Header con información del contacto
-- [ ] Área de mensajes
-  - Mensajes enviados (derecha)
-  - Mensajes recibidos (izquierda)
-  - Timestamps
-- [ ] Input de mensaje
-  - Campo de texto
-  - Botón de envío
-- [ ] Lista de chats (vista de lista)
   - Avatar del contacto
+  - Timestamp
+- [x] NavBar fija en la parte inferior (usando layout) ✅
+
+#### 4.4 Página de Búsqueda (`app/(protected)/search/page.tsx`)
+- [x] Barra de búsqueda en la parte superior ✅
+  - Input de búsqueda (Input component)
+  - Botón de búsqueda (Button Primary)
+  - Búsqueda en tiempo real
+- [x] Resultados de búsqueda ✅
+  - Grid de ProductCards (datos mock)
+  - Filtrado dinámico
+- [x] Estado vacío (sin resultados) ✅
+- [x] NavBar fija en la parte inferior ✅
+
+#### 4.5 Página de Detalles de Producto (`app/(protected)/product/[id]/page.tsx`)
+- [x] Imagen principal del producto ✅
+  - Next.js Image optimizado
+  - Badge de estado
+- [x] Información del producto ✅
+  - Título (Poppins Bold)
+  - Descripción (Poppins Regular)
+  - Precio/Estado (Badge component)
+  - Ubicación (Icon location)
+- [x] Información del vendedor ✅
+  - Avatar y nombre (Avatar component)
+  - Email
+  - Link a perfil
+- [x] Sección "Productos Similares" ✅
+  - Grid de ProductCards (datos mock)
+- [x] Botón de acción (Contactar Vendedor - Button Primary) ✅
+- [x] NavBar fija en la parte inferior ✅
+
+#### 4.6 Página de Chat (`app/(protected)/chat/page.tsx` y `app/(protected)/chat/[id]/page.tsx`)
+- [x] Lista de chats (`app/(protected)/chat/page.tsx`) ✅
+  - Lista de conversaciones (datos mock)
+  - Avatar del contacto (Avatar component)
   - Nombre
   - Preview del último mensaje
   - Timestamp
+- [x] Chat individual (`app/(protected)/chat/[id]/page.tsx`) ✅
+  - Header con información del contacto (Avatar, nombre)
+  - Área de mensajes
+    - Mensajes enviados (derecha, estilo propio)
+    - Mensajes recibidos (izquierda, estilo propio)
+    - Timestamps
+  - Input de mensaje (Input component)
+  - Botón de envío (Button Primary)
+- [x] NavBar fija en la parte inferior ✅
 
-#### 4.7 Página de Perfil (`app/profile/page.tsx`)
-- [ ] Información del usuario
-  - Avatar
-  - Nombre
-  - Email
-  - Botón "Editar Perfil"
-- [ ] Sección "Mis Productos Publicados"
-  - Grid de ProductCards
-- [ ] Botones de acción
-  - Configuración
-  - Cerrar Sesión
+#### 4.7 Página de Perfil (`app/(protected)/profile/page.tsx`)
+- [x] Información del usuario ✅
+  - Avatar (Avatar component, large)
+  - Nombre (Poppins Bold)
+  - Email (Poppins Regular)
+  - Botón "Editar Perfil" (Button Secondary)
+- [x] Sección "Mis Productos Publicados" ✅
+  - Grid de ProductCards (datos mock)
+- [x] Botones de acción ✅
+  - Configuración (Icon settings)
+  - Cerrar Sesión (Icon logout)
+- [x] NavBar fija en la parte inferior ✅
 
-### Datos Mock:
-- Crear archivo `lib/mockData.ts` con datos de ejemplo:
-  - Productos mock
-  - Usuarios mock
-  - Mensajes mock
-  - Chat mock
+### Datos Mock Creados:
+- [x] Archivo `lib/mockData.ts` con datos de ejemplo ✅
+  - Productos mock (8 productos)
+  - Usuarios mock (4 usuarios)
+  - Mensajes mock (7 mensajes)
+  - Chats mock (3 conversaciones)
+  - Funciones helper para obtener datos
+
+### Layouts Creados:
+- [x] `app/(auth)/layout.tsx` - Layout para páginas de autenticación (sin NavBar) ✅
+- [x] `app/(protected)/layout.tsx` - Layout para páginas protegidas (con NavBar) ✅
+
+### Archivos Creados/Modificados:
+- ✅ `lib/mockData.ts` - Datos mock completos con tipos TypeScript
+- ✅ `app/(auth)/layout.tsx` - Layout para autenticación
+- ✅ `app/(protected)/layout.tsx` - Layout para páginas protegidas
+- ✅ `app/(auth)/login/page.tsx` - Página de Login
+- ✅ `app/(auth)/register/page.tsx` - Página de Registro
+- ✅ `app/(protected)/home/page.tsx` - Página Home
+- ✅ `app/(protected)/search/page.tsx` - Página de Búsqueda
+- ✅ `app/(protected)/product/[id]/page.tsx` - Detalles de Producto
+- ✅ `app/(protected)/chat/page.tsx` - Lista de Chats
+- ✅ `app/(protected)/chat/[id]/page.tsx` - Chat Individual
+- ✅ `app/(protected)/profile/page.tsx` - Página de Perfil
+- ✅ `app/page.tsx` - Landing page actualizada
+
+### Resultados:
+- Todas las páginas del MVP implementadas según PRD
+- Navegación funcional entre todas las páginas
+- Datos mock para demostración
+- Validación básica de formularios (frontend)
+- Uso de componentes base creados en Fase 3
+- Layouts diferenciados (auth y protected)
+- NavBar funcional en todas las páginas protegidas
+- Proyecto compila sin errores
+- Todas las rutas funcionan correctamente
 
 ### Consideraciones:
-- Todas las páginas deben ser responsive
-- Mobile-first approach
-- Navegación fluida entre páginas
-- Estados de carga y error básicos
+- Todas las páginas son responsive ✅
+- Mobile-first approach implementado ✅
+- Navegación fluida entre páginas ✅
+- Estados de carga y error básicos implementados ✅
 
 ---
 
@@ -494,21 +533,21 @@ components/
 | **Día 1-2** | Setup Inicial | ✅ COMPLETADO - Proyecto Next.js, estructura, configuración |
 | **Día 2-3** | Sistema de Diseño | ✅ COMPLETADO - Colores PRD, tipografía completa, iconografía |
 | **Día 3-4** | Componentes Base | ✅ COMPLETADO - Botones, Cards, Inputs, NavBar, Avatar, Badge, Loading |
-| **Día 4-5** | Páginas MVP (Parte 1) | Login, Register, Home |
+| **Día 4-5** | Páginas MVP (Parte 1) | ✅ COMPLETADO - Login, Register, Home |
 
 ### Semana 2 (Días 6-10)
 
 | Día | Fase | Tareas Principales |
 |-----|------|-------------------|
-| **Día 5-6** | Páginas MVP (Parte 2) | Search, Product Details |
-| **Día 6-7** | Páginas MVP (Parte 3) | Chat, Profile |
+| **Día 5-6** | Páginas MVP (Parte 2) | ✅ COMPLETADO - Search, Product Details |
+| **Día 6-7** | Páginas MVP (Parte 3) | ✅ COMPLETADO - Chat, Profile |
 | **Día 7-8** | Navegación | Routing completo, NavBar funcional |
 | **Día 9-10** | Refinamiento | Testing, ajustes visuales, documentación |
 
 ### Hitos Importantes:
 - **Día 3:** ✅ Sistema de diseño completo
 - **Día 4:** ✅ Componentes base listos
-- **Día 7:** Todas las páginas implementadas
+- **Día 7:** ✅ Todas las páginas implementadas
 - **Día 8:** Navegación completa funcional
 - **Día 10:** MVP listo para entrega
 
@@ -520,15 +559,15 @@ components/
 1. ✅ Setup inicial del proyecto
 2. ✅ Sistema de diseño completo (colores, tipografía)
 3. ✅ Componentes base (Botones, Cards, Inputs, NavBar, Avatar, Badge, Loading)
-4. Páginas principales (Login, Register, Home)
-5. Navegación básica entre páginas
-6. NavBar funcional
+4. ✅ Páginas principales (Login, Register, Home, Search, Product, Chat, Profile)
+5. ✅ Navegación básica entre páginas
+6. ✅ NavBar funcional
 
 ### Prioridad Media (Importante para MVP)
-7. Páginas restantes (Search, Product, Chat, Profile)
-8. Datos mock para demostración
-9. Estados de carga y error básicos
-10. Responsive design básico
+7. ✅ Páginas restantes (Search, Product, Chat, Profile)
+8. ✅ Datos mock para demostración
+9. ✅ Estados de carga y error básicos
+10. ✅ Responsive design básico
 
 ### Prioridad Baja (Puede posponerse)
 11. Optimizaciones de performance avanzadas
@@ -571,18 +610,18 @@ components/
 
 Antes de considerar el MVP completo, verificar:
 
-- [ ] Todas las páginas del PRD están implementadas
-- [ ] Navegación funciona entre todas las páginas
-- [ ] Login y Register son navegables (aunque sean estáticos)
-- [ ] NavBar fija en la parte inferior funciona
-- [ ] Diseño visual coincide con el PRD
+- [x] Todas las páginas del PRD están implementadas ✅
+- [x] Navegación funciona entre todas las páginas ✅
+- [x] Login y Register son navegables (aunque sean estáticos) ✅
+- [x] NavBar fija en la parte inferior funciona ✅
+- [x] Diseño visual coincide con el PRD ✅
 - [x] Colores exactos del PRD implementados ✅
 - [x] Tipografía Poppins correctamente aplicada ✅
 - [x] Iconos outline según especificación ✅
-- [ ] Responsive en móvil
-- [ ] Código documentado y comentado
+- [x] Responsive en móvil ✅
+- [x] Código documentado y comentado ✅
 - [ ] README actualizado
-- [ ] Proyecto compila sin errores
+- [x] Proyecto compila sin errores ✅
 
 ---
 
@@ -600,14 +639,24 @@ Antes de considerar el MVP completo, verificar:
    - ✅ NavBar (Fixed Bottom)
    - ✅ Avatar, Badge, Loading
 
-3. **Comenzar Fase 4:** Páginas principales
-   - Implementar Login y Register primero
-   - Luego Home con secciones básicas
-   - Continuar con el resto de páginas
+3. ✅ **Fase 4 Completada:** Páginas principales
+   - ✅ Login y Register con validación básica
+   - ✅ Home con secciones (Recientes, Recomendados, Chats Activos)
+   - ✅ Search con búsqueda en tiempo real
+   - ✅ Product Details con información completa
+   - ✅ Chat (lista e individual) con mensajes
+   - ✅ Profile con productos publicados
+   - ✅ Datos mock completos
+   - ✅ Layouts (auth y protected)
+
+4. **Comenzar Fase 5:** Navegación y routing
+   - Verificar routing completo
+   - Asegurar navegación entre todas las páginas
+   - Protección de rutas básica (mock)
 
 ---
 
 **Documento creado:** Noviembre 5, 2025  
-**Última actualización:** Noviembre 5, 2025 (Fase 3 completada)  
-**Versión:** 1.2
+**Última actualización:** Noviembre 5, 2025 (Fase 4 completada)  
+**Versión:** 1.3
 
