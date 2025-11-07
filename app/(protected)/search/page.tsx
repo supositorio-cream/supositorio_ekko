@@ -38,7 +38,7 @@ export default function SearchPage() {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Barra de búsqueda */}
-      <div className="mb-6">
+      <div className="mb-6" role="search" aria-label="Buscar productos">
         <div className="flex gap-2">
           <Input
             type="search"
@@ -46,11 +46,13 @@ export default function SearchPage() {
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
             className="flex-1"
+            aria-label="Campo de búsqueda de productos"
           />
           <Button
             variant="primary"
             onClick={() => handleSearch(searchQuery)}
             className="px-6"
+            aria-label="Buscar productos"
           >
             Buscar
           </Button>
@@ -59,13 +61,24 @@ export default function SearchPage() {
 
       {/* Resultados de búsqueda */}
       {filteredProducts.length > 0 ? (
-        <div>
+        <section aria-label="Resultados de búsqueda">
           <h2 className="font-bold text-lg text-text-primary mb-4">
             Resultados de búsqueda ({filteredProducts.length})
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div 
+            className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide"
+            role="list" 
+            aria-label={`${filteredProducts.length} productos encontrados`}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
             {filteredProducts.map((product) => (
-              <Link key={product.id} href={`${ROUTES.PRODUCT}/${product.id}`}>
+              <Link 
+                key={product.id} 
+                href={`${ROUTES.PRODUCT}/${product.id}`}
+                role="listitem"
+                aria-label={`Ver producto: ${product.title}`}
+                className="flex-shrink-0 w-[calc(50%-0.5rem)] sm:w-64 snap-start"
+              >
                 <ProductCard
                   image={product.image}
                   title={product.title}
@@ -73,13 +86,14 @@ export default function SearchPage() {
                   price={product.price}
                   status={product.status === 'disponible' ? 'Disponible' : product.status === 'reservado' ? 'Reservado' : 'Vendido'}
                   onClick={() => {}}
+                  alt={product.title}
                 />
               </Link>
             ))}
           </div>
-        </div>
+        </section>
       ) : (
-        <div className="text-center py-12">
+        <div className="text-center py-12" role="status" aria-live="polite">
           <p className="font-regular text-lg text-text-secondary mb-2">
             No se encontraron resultados
           </p>

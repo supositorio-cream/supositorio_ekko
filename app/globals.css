@@ -175,10 +175,54 @@ body {
   padding: 0 16px;
 }
 
-/* Estilos para móvil-first */
-@media (min-width: 768px) {
+/* Utilidad para ocultar scrollbar pero mantener scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Responsive Design - Mobile First Approach
+ * 
+ * Según PRD Section 9: Non-Functional Requirements
+ * - Mobile-first design
+ * - Touch targets mínimo 44x44px
+ * - Alto contraste y tipografía legible
+ * 
+ * Breakpoints:
+ * - Mobile: 320px - 480px (default)
+ * - Tablet: 481px - 768px
+ * - Desktop: 769px+
+ */
+
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) {
+  .container {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+}
+
+/* Tablet landscape y Desktop: 769px+ */
+@media (min-width: 769px) {
   .container {
     max-width: 768px;
+    margin: 0 auto;
+  }
+  
+  /* Ajustes para grid de productos en desktop */
+  .grid-cols-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Desktop grande: 1024px+ */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
   }
 }
 

@@ -8,11 +8,12 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { use } from 'react';
-import { Button, Avatar, Badge, ProductCard, Icon } from '@/components/ui';
+import { useRouter } from 'next/navigation';
+import { Button, Avatar, Badge, ProductCard, Icon, Textarea } from '@/components/ui';
 import { getProductById, mockProducts, getUserById } from '@/lib/mockData';
 import { getIcon } from '@/lib/icons';
 import { ROUTES } from '@/lib/constants';
@@ -22,8 +23,17 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
+  const router = useRouter();
   const { id } = use(params);
   const product = getProductById(id);
+  const [message, setMessage] = useState('');
+  
+  // Inicializar mensaje cuando el producto esté disponible
+  useEffect(() => {
+    if (product) {
+      setMessage(`Hola! Me interesa el producto "${product.title}". ¿Aún está disponible?`);
+    }
+  }, [product]);
   
   if (!product) {
     return (
@@ -41,15 +51,30 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   // Obtener productos similares (excluyendo el actual)
-  const similarProducts = mockProducts
-    .filter(p => p.id !== product.id && p.category === product.category)
-    .slice(0, 4);
+  // Primero intentar productos de la misma categoría, si no hay suficientes, agregar otros productos
+  const sameCategoryProducts = mockProducts
+    .filter(p => p.id !== product.id && p.category === product.category);
+  
+  const otherProducts = mockProducts
+    .filter(p => p.id !== product.id && p.category !== product.category);
+  
+  // Combinar: primero productos de la misma categoría, luego otros productos
+  const similarProducts = [...sameCategoryProducts, ...otherProducts].slice(0, 4);
 
   const statusBadgeVariant = product.status === 'disponible' 
     ? 'primary' 
     : product.status === 'reservado' 
     ? 'accent' 
     : 'default';
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+    
+    // Simular envío de mensaje y navegar al chat
+    // En una implementación real, aquí se enviaría el mensaje al backend
+    router.push(`${ROUTES.CHAT}/1`);
+  };
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -97,11 +122,11 @@ export default function ProductPage({ params }: ProductPageProps) {
       </div>
 
       {/* Información del vendedor */}
-      <div className="bg-white rounded-lg p-4 mb-6">
+      <section className="bg-white rounded-lg p-4 mb-6" aria-label="Información del vendedor">
         <h3 className="font-bold text-base text-text-primary mb-3">
           Vendedor
         </h3>
-        <Link href={ROUTES.PROFILE} className="flex items-center gap-3">
+        <Link href={ROUTES.PROFILE} className="flex items-center gap-3" aria-label={`Ver perfil de ${product.seller.name}`}>
           <Avatar
             src={product.seller.avatar}
             name={product.seller.name}
@@ -116,30 +141,55 @@ export default function ProductPage({ params }: ProductPageProps) {
             </p>
           </div>
         </Link>
-      </div>
+      </section>
 
-      {/* Botón de acción */}
-      <Button
-        variant="primary"
-        size="large"
-        className="w-full mb-8"
-        onClick={() => {
-          // Navegar a chat o acción según PRD
-          window.location.href = `${ROUTES.CHAT}/1`;
-        }}
-      >
-        Contactar Vendedor
-      </Button>
+      {/* Formulario de mensaje */}
+      <section className="bg-white rounded-lg p-4 mb-8" aria-label="Enviar mensaje al vendedor">
+        <h3 className="font-bold text-base text-text-primary mb-3">
+          Enviar mensaje al vendedor
+        </h3>
+        <form onSubmit={handleSendMessage} className="space-y-4">
+          <Textarea
+            label="Mensaje"
+            placeholder="Escribe tu mensaje aquí..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            required
+            aria-label="Mensaje para el vendedor"
+          />
+          <Button
+            type="submit"
+            variant="primary"
+            size="large"
+            className="w-full"
+            aria-label="Enviar mensaje al vendedor"
+          >
+            Enviar Mensaje
+          </Button>
+        </form>
+      </section>
 
       {/* Productos Similares */}
       {similarProducts.length > 0 && (
-        <section>
+        <section className="mt-8 mb-8" aria-label="Productos similares">
           <h3 className="font-bold text-lg text-text-primary mb-4">
             Productos Similares
           </h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div
+            className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide"
+            role="list"
+            aria-label="Lista de productos similares"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
             {similarProducts.map((similarProduct) => (
-              <Link key={similarProduct.id} href={`${ROUTES.PRODUCT}/${similarProduct.id}`}>
+              <Link
+                key={similarProduct.id}
+                href={`${ROUTES.PRODUCT}/${similarProduct.id}`}
+                role="listitem"
+                aria-label={`Ver producto: ${similarProduct.title}`}
+                className="flex-shrink-0 w-[calc(50%-0.5rem)] sm:w-64 snap-start"
+              >
                 <ProductCard
                   image={similarProduct.image}
                   title={similarProduct.title}

@@ -74,12 +74,13 @@ export default function ChatPage({ params }: ChatPageProps) {
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Header con información del contacto */}
       <div className="bg-white border-b border-border px-4 py-3 flex items-center gap-3">
-        <Link href={ROUTES.CHAT}>
+        <Link href={ROUTES.CHAT} aria-label="Volver a lista de chats">
           <Icon
             icon={getIcon('chevron-left')}
             size={24}
             color="dark-green"
             className="cursor-pointer"
+            aria-label="Volver"
           />
         </Link>
         <Avatar
@@ -95,7 +96,12 @@ export default function ChatPage({ params }: ChatPageProps) {
       </div>
 
       {/* Área de mensajes */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-6 space-y-4"
+        role="log"
+        aria-label="Mensajes de la conversación"
+        aria-live="polite"
+      >
         {messages.map((message) => {
           const isSent = message.senderId === 'current-user';
           const sender = isSent ? currentUser : contact;
@@ -104,6 +110,8 @@ export default function ChatPage({ params }: ChatPageProps) {
             <div
               key={message.id}
               className={`flex ${isSent ? 'justify-end' : 'justify-start'}`}
+              role="article"
+              aria-label={isSent ? `Mensaje enviado: ${message.text}` : `Mensaje recibido de ${contact.name}: ${message.text}`}
             >
               <div className={`flex gap-2 max-w-[80%] ${isSent ? 'flex-row-reverse' : 'flex-row'}`}>
                 {!isSent && (
@@ -134,6 +142,7 @@ export default function ChatPage({ params }: ChatPageProps) {
       <form
         onSubmit={handleSendMessage}
         className="bg-white border-t border-border px-4 py-3 flex gap-2"
+        aria-label="Formulario de mensaje"
       >
         <Input
           type="text"
@@ -142,12 +151,14 @@ export default function ChatPage({ params }: ChatPageProps) {
           onChange={(e) => setMessageText(e.target.value)}
           className="flex-1"
           label=""
+          aria-label="Escribe un mensaje"
         />
         <Button
           type="submit"
           variant="primary"
           disabled={!messageText.trim()}
           className="px-6"
+          aria-label="Enviar mensaje"
         >
           Enviar
         </Button>

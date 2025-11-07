@@ -63,8 +63,9 @@ export const NavBar: React.FC = () => {
                 href={item.route}
                 className={`
                   flex flex-col items-center justify-center
-                  flex-1 h-full
+                  flex-1 h-full min-h-[44px]
                   transition-colors duration-200
+                  touch-target
                   ${isActive 
                     ? 'text-primary' 
                     : 'text-white hover:text-primary'
@@ -77,6 +78,7 @@ export const NavBar: React.FC = () => {
                   icon={getIcon(item.icon)}
                   size={24}
                   color={isActive ? 'dark-green' : 'white'}
+                  aria-label={`${item.label} icono`}
                 />
                 <span className="text-xs font-regular mt-1">
                   {item.label}

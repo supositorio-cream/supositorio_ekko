@@ -12,10 +12,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/components/ui';
+import { useAuth } from '@/contexts/AuthContext';
 import { ROUTES } from '@/lib/constants';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +29,7 @@ export default function RegisterPage() {
     confirmPassword?: string;
   }>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [registerError, setRegisterError] = useState('');
 
   const validateForm = (): boolean => {
     const newErrors: {
@@ -64,19 +67,31 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setRegisterError('');
     
     if (!validateForm()) {
       return;
     }
 
     setIsLoading(true);
-    
-    // Simular registro (mock - según PRD, no hay backend)
-    setTimeout(() => {
+    try {
+      // Simular registro exitoso y luego hacer login automático
+      // En un caso real, aquí se llamaría a una API de registro
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Después del registro, hacer login automático
+      const success = await login(email, password);
+      if (success) {
+        router.push(ROUTES.HOME);
+      } else {
+        setRegisterError('Error al registrar usuario. Por favor, intenta de nuevo.');
+      }
+    } catch (error) {
+      setRegisterError('Error al registrarse. Por favor, intenta de nuevo.');
+      console.error('Register error:', error);
+    } finally {
       setIsLoading(false);
-      // Redirigir a home después del "registro"
-      router.push(ROUTES.HOME);
-    }, 1000);
+    }
   };
 
   return (
@@ -91,6 +106,11 @@ export default function RegisterPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {registerError && (
+          <div className="p-3 bg-error/10 border border-error rounded-lg text-error text-sm font-regular">
+            {registerError}
+          </div>
+        )}
         <Input
           label="Nombre completo"
           type="text"

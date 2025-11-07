@@ -44,13 +44,24 @@ export default function HomePage() {
       </div>
 
       {/* Sección Recientemente Vistos */}
-      <section className="mb-8">
+      <section className="mb-8" aria-label="Productos recientemente vistos">
         <h3 className="font-bold text-lg text-text-primary mb-4">
           Recientemente Vistos
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div 
+          className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide"
+          role="list" 
+          aria-label="Lista de productos recientemente vistos"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {recentProducts.map((product) => (
-            <Link key={product.id} href={`${ROUTES.PRODUCT}/${product.id}`}>
+            <Link 
+              key={product.id} 
+              href={`${ROUTES.PRODUCT}/${product.id}`}
+              role="listitem"
+              aria-label={`Ver producto: ${product.title}`}
+              className="flex-shrink-0 w-[calc(50%-0.5rem)] sm:w-64 snap-start"
+            >
               <ProductCard
                 image={product.image}
                 title={product.title}
@@ -58,6 +69,7 @@ export default function HomePage() {
                 price={product.price}
                 status={product.status === 'disponible' ? 'Disponible' : product.status === 'reservado' ? 'Reservado' : 'Vendido'}
                 onClick={() => {}}
+                alt={product.title}
               />
             </Link>
           ))}
@@ -65,13 +77,24 @@ export default function HomePage() {
       </section>
 
       {/* Sección Recomendados */}
-      <section className="mb-8">
+      <section className="mb-8" aria-label="Productos recomendados">
         <h3 className="font-bold text-lg text-text-primary mb-4">
           Recomendados para ti
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div 
+          className="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory scrollbar-hide"
+          role="list" 
+          aria-label="Lista de productos recomendados"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {recommendedProducts.map((product) => (
-            <Link key={product.id} href={`${ROUTES.PRODUCT}/${product.id}`}>
+            <Link 
+              key={product.id} 
+              href={`${ROUTES.PRODUCT}/${product.id}`}
+              role="listitem"
+              aria-label={`Ver producto: ${product.title}`}
+              className="flex-shrink-0 w-[calc(50%-0.5rem)] sm:w-64 snap-start"
+            >
               <ProductCard
                 image={product.image}
                 title={product.title}
@@ -79,6 +102,7 @@ export default function HomePage() {
                 price={product.price}
                 status={product.status === 'disponible' ? 'Disponible' : product.status === 'reservado' ? 'Reservado' : 'Vendido'}
                 onClick={() => {}}
+                alt={product.title}
               />
             </Link>
           ))}
@@ -86,7 +110,7 @@ export default function HomePage() {
       </section>
 
       {/* Sección Chats Activos */}
-      <section className="mb-8">
+      <section className="mb-8" aria-label="Chats activos">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold text-lg text-text-primary">
             Chats Activos
@@ -94,11 +118,12 @@ export default function HomePage() {
           <Link
             href={ROUTES.CHAT}
             className="text-primary font-regular text-sm hover:underline"
+            aria-label="Ver todos los chats"
           >
             Ver todos
           </Link>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3" role="list" aria-label="Lista de chats activos">
           {activeChats.map((chat) => {
             const contactId = chat.userId1 === 'current-user' ? chat.userId2 : chat.userId1;
             const contact = getUserById(contactId);
@@ -110,6 +135,8 @@ export default function HomePage() {
                 key={chat.id}
                 href={`${ROUTES.CHAT}/${chat.id}`}
                 className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
+                role="listitem"
+                aria-label={`Chat con ${contact.name}`}
               >
                 <Avatar
                   src={contact.avatar}

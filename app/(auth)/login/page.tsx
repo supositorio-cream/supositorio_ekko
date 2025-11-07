@@ -12,14 +12,17 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/components/ui';
+import { useAuth } from '@/contexts/AuthContext';
 import { ROUTES } from '@/lib/constants';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   const validateForm = (): boolean => {
     const newErrors: { email?: string; password?: string } = {};
@@ -42,19 +45,26 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoginError('');
     
     if (!validateForm()) {
       return;
     }
 
     setIsLoading(true);
-    
-    // Simular login (mock - según PRD, no hay backend)
-    setTimeout(() => {
+    try {
+      const success = await login(email, password);
+      if (success) {
+        router.push(ROUTES.HOME);
+      } else {
+        setLoginError('Credenciales inválidas. Por favor, intenta de nuevo.');
+      }
+    } catch (error) {
+      setLoginError('Error al iniciar sesión. Por favor, intenta de nuevo.');
+      console.error('Login error:', error);
+    } finally {
       setIsLoading(false);
-      // Redirigir a home después del "login"
-      router.push(ROUTES.HOME);
-    }, 1000);
+    }
   };
 
   return (
@@ -69,6 +79,11 @@ export default function LoginPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {loginError && (
+          <div className="p-3 bg-error/10 border border-error rounded-lg text-error text-sm font-regular">
+            {loginError}
+          </div>
+        )}
         <Input
           label="Correo electrónico"
           type="email"

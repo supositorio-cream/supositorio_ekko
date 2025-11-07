@@ -82,9 +82,15 @@ export interface ButtonProps {
 
 /**
  * Mapeo de tamaños a clases CSS
+ * 
+ * @remarks
+ * Touch targets mínimo: 44x44px según accesibilidad móvil
+ * - small: 44px (h-11) - mínimo para touch
+ * - medium: 48px (h-12) - recomendado para botones principales
+ * - large: 56px (h-14) - botones destacados
  */
 const sizeClasses: Record<ButtonSize, string> = {
-  small: 'h-8 px-3 text-sm',
+  small: 'h-11 px-4 text-sm min-w-[44px]', // 44px mínimo para touch
   medium: 'h-12 px-6 text-base',
   large: 'h-14 px-8 text-lg',
 };

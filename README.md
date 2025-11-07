@@ -184,13 +184,22 @@ npm run lint
 - [x] Datos mock para demostración
 - [x] Layouts diferenciados (auth y protected)
 - [x] NavBar fija en la parte inferior
+- [x] Protección de rutas básica (mock)
+- [x] Autenticación mock (localStorage)
+- [x] Refinamiento visual (colores PRD, tipografía, iconos)
+- [x] Responsive design (mobile, tablet, desktop)
+- [x] Accesibilidad (ARIA labels, navegación por teclado, contraste)
+- [x] Optimización de imágenes (Next.js Image)
+- [x] Estados de carga, error y vacíos
+- [x] Touch targets mínimo 44x44px
+- [x] Documentación completa
 
-### ⏳ Pendiente
+### ⏳ Pendiente (Post-MVP)
 
-- [ ] Protección de rutas básica (mock)
-- [ ] Integración con Firebase (post-MVP)
+- [ ] Integración con Firebase
 - [ ] Autenticación real
 - [ ] Backend API
+- [ ] Notificaciones push
 
 ## 🐛 Solución de Problemas
 
@@ -233,16 +242,95 @@ npx tsc --noEmit
 - **PRD.md** - Documento de requisitos del producto (Product Requirements Document)
 - **PLAN_IMPLEMENTACION.md** - Plan detallado de implementación y estado del proyecto
 
+## 🧪 Testing Manual
+
+### Flujos de Navegación a Probar
+
+#### 1. Flujo de Autenticación
+- **Landing (/) → Login**: Debe redirigir automáticamente a `/login` si no está autenticado
+- **Landing (/) → Home**: Debe redirigir automáticamente a `/home` si está autenticado
+- **Login → Home**: Después de iniciar sesión, debe redirigir a `/home`
+- **Register → Home**: Después de registrarse, debe redirigir a `/home`
+- **Autenticado → Login/Register**: Si ya está autenticado, no debe poder acceder a `/login` o `/register`
+
+#### 2. Flujo de Navegación Principal
+- **Home → Search**: Navegación con NavBar
+- **Home → Product Details**: Click en un producto desde Home
+- **Search → Product Details**: Click en un producto desde resultados de búsqueda
+- **Product Details → Back**: Volver a la página anterior
+- **Home → Chat List**: Navegación con NavBar
+- **Chat List → Chat Individual**: Click en un chat
+- **Chat Individual → Back**: Volver a lista de chats
+- **Home → Profile**: Navegación con NavBar
+- **Profile → Product Details**: Click en un producto del perfil
+
+#### 3. Protección de Rutas
+- **Sin autenticación**: Intentar acceder a `/home`, `/search`, `/chat`, `/profile` debe redirigir a `/login`
+- **Con autenticación**: Intentar acceder a `/login` o `/register` debe redirigir a `/home`
+
+### Estados a Verificar
+
+#### Estados de Carga
+- **Login/Register**: Muestra "Cargando..." durante la autenticación
+- **Layouts**: Muestran "Cargando..." mientras verifican autenticación
+
+#### Estados de Error
+- **Login**: Muestra mensaje de error si las credenciales son inválidas
+- **Register**: Muestra mensaje de error si hay problemas en el registro
+- **Formularios**: Muestran mensajes de error en campos inválidos
+
+#### Estados Vacíos
+- **Search**: Muestra mensaje cuando no hay resultados
+- **Chat List**: Muestra mensaje cuando no hay chats activos
+- **Profile**: Muestra mensaje cuando no hay productos publicados
+
+### Responsive Design
+
+#### Mobile (320px - 480px)
+- Grid de productos: 2 columnas
+- NavBar: Fija en la parte inferior
+- Touch targets: Mínimo 44x44px
+- Contenido: Se adapta al ancho de pantalla
+
+#### Tablet (481px - 768px)
+- Grid de productos: 2 columnas
+- Padding: Aumentado a 24px
+- Contenido: Se adapta al ancho de pantalla
+
+#### Desktop (769px+)
+- Grid de productos: 3 columnas
+- Contenedor: Máximo 768px (centrado)
+- NavBar: Fija en la parte inferior
+
+### Accesibilidad
+
+#### ARIA Labels
+- Todos los botones tienen `aria-label` descriptivos
+- Los iconos tienen `aria-label` apropiados
+- Las secciones tienen `aria-label` para contexto
+- Los formularios tienen `aria-label` y roles apropiados
+
+#### Navegación por Teclado
+- Todos los elementos interactivos son accesibles por teclado
+- Orden de tabulación lógico
+- Focus visible en todos los elementos
+
+#### Contraste de Colores
+- Texto principal (#2F2F2F) sobre fondo blanco: ✅ Alto contraste
+- Texto secundario (#6F6F6F) sobre fondo blanco: ✅ Contraste adecuado
+- Texto blanco sobre fondo verde (#3CB371): ✅ Alto contraste
+
 ## 🎯 Próximos Pasos
 
-1. **Fase 5**: Navegación y routing completo
-2. **Fase 6**: Refinamiento y testing
-3. **Post-MVP**: Integración con Firebase
+1. **Post-MVP**: Integración con Firebase
+2. **Backend API**: Desarrollo de API REST
+3. **Autenticación real**: Integración con Firebase Auth
+4. **Notificaciones**: Sistema de notificaciones push
 
 ## 👥 Desarrollo
 
 Proyecto desarrollado como parte del Cuatrimestre 7 - Trabajos EU.
 
-**Estado Actual**: MVP - Fase 4 completada  
+**Estado Actual**: MVP - Fase 6 completada (Refinamiento y Testing)  
 **Versión**: 0.1.0  
 **Última actualización**: Noviembre 2025

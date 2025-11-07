@@ -83,20 +83,25 @@ export default function ProfilePage() {
       </div>
 
       {/* Sección Mis Productos Publicados */}
-      <section>
+      <section aria-label="Mis productos publicados">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-bold text-lg text-text-primary">
             Mis Productos Publicados
           </h2>
-          <span className="font-regular text-sm text-text-secondary">
+          <span className="font-regular text-sm text-text-secondary" aria-label={`${userProducts.length} ${userProducts.length === 1 ? 'producto' : 'productos'}`}>
             {userProducts.length} {userProducts.length === 1 ? 'producto' : 'productos'}
           </span>
         </div>
 
         {userProducts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" role="list" aria-label="Lista de productos publicados">
             {userProducts.map((product) => (
-              <Link key={product.id} href={`${ROUTES.PRODUCT}/${product.id}`}>
+              <Link 
+                key={product.id} 
+                href={`${ROUTES.PRODUCT}/${product.id}`}
+                role="listitem"
+                aria-label={`Ver producto: ${product.title}`}
+              >
                 <ProductCard
                   image={product.image}
                   title={product.title}
@@ -104,12 +109,13 @@ export default function ProfilePage() {
                   price={product.price}
                   status={product.status === 'disponible' ? 'Disponible' : product.status === 'reservado' ? 'Reservado' : 'Vendido'}
                   onClick={() => {}}
+                  alt={product.title}
                 />
               </Link>
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-lg p-8 text-center">
+          <div className="bg-white rounded-lg p-8 text-center" role="status" aria-live="polite">
             <p className="font-regular text-base text-text-secondary mb-4">
               Aún no has publicado ningún producto
             </p>
@@ -118,6 +124,7 @@ export default function ProfilePage() {
               onClick={() => {
                 // En una implementación real, abrir modal de crear producto
               }}
+              aria-label="Publicar nuevo producto"
             >
               Publicar Producto
             </Button>
