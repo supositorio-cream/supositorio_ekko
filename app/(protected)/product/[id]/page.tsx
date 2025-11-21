@@ -98,12 +98,9 @@ export default function ProductPage({ params }: ProductPageProps) {
 
       {/* Información del producto */}
       <div className="mb-6">
-        <h1 className="font-bold text-2xl text-text-primary mb-2">
+        <h1 className="font-bold text-2xl text-text-primary mb-4">
           {product.title}
         </h1>
-        <p className="font-bold text-3xl text-primary mb-4">
-          {product.price}
-        </p>
         <p className="font-regular text-base text-text-primary mb-4">
           {product.description}
         </p>
@@ -194,7 +191,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                   image={similarProduct.image}
                   title={similarProduct.title}
                   location={similarProduct.location}
-                  price={similarProduct.price}
                   status={similarProduct.status === 'disponible' ? 'Disponible' : similarProduct.status === 'reservado' ? 'Reservado' : 'Vendido'}
                   onClick={() => {}}
                 />

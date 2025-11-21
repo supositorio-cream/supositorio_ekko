@@ -9,7 +9,6 @@ export interface Product {
   id: string;
   title: string;
   description: string;
-  price: string;
   image: string;
   images?: string[]; // Para carousel
   location: string;
@@ -88,7 +87,6 @@ export const mockProducts: Product[] = [
     id: '1',
     title: 'Bicicleta Vintage Restaurada',
     description: 'Hermosa bicicleta vintage completamente restaurada. Ideal para paseos en la ciudad. Incluye canasta y timbre original.',
-    price: '$2,500',
     image: '/BicicletaVintagewebp.webp',
     images: ['/BicicletaVintagewebp.webp', '/BicicletaVintagewebp.webp', '/BicicletaVintagewebp.webp'],
     location: 'Ciudad de México, CDMX',
@@ -100,7 +98,6 @@ export const mockProducts: Product[] = [
     id: '2',
     title: 'Set de Macetas de Cerámica',
     description: 'Conjunto de 5 macetas de cerámica artesanal, perfectas para plantas de interior. Varios tamaños y colores.',
-    price: '$450',
     image: '/SetMacetasCeramica.jpg',
     images: ['/SetMacetasCeramica.jpg', '/SetMacetasCeramica.jpg', '/SetMacetasCeramica.jpg'],
     location: 'Guadalajara, Jalisco',
@@ -112,7 +109,6 @@ export const mockProducts: Product[] = [
     id: '3',
     title: 'Libros de Cocina Vegana',
     description: 'Colección de 3 libros de cocina vegana en excelente estado. Recetas deliciosas y saludables.',
-    price: '$300',
     image: '/LibrosCocinaVegana.jpg',
     images: ['/LibrosCocinaVegana.jpg', '/LibrosCocinaVegana.jpg', '/LibrosCocinaVegana.jpg'],
     location: 'Monterrey, Nuevo León',
@@ -124,7 +120,6 @@ export const mockProducts: Product[] = [
     id: '4',
     title: 'Mesa de Madera Reciclada',
     description: 'Mesa de comedor hecha con madera reciclada. Diseño moderno y sostenible. Perfecto para 4 personas.',
-    price: '$1,800',
     image: '/MesaMaderaReciclada.webp',
     images: ['/MesaMaderaReciclada.webp', '/MesaMaderaReciclada.webp', '/MesaMaderaReciclada.webp'],
     location: 'Puebla, Puebla',
@@ -136,7 +131,6 @@ export const mockProducts: Product[] = [
     id: '5',
     title: 'Ropa de Segunda Mano',
     description: 'Lote de ropa de segunda mano en buen estado. Varias tallas y estilos. Moda sostenible.',
-    price: '$200',
     image: '/RopaSegundaMano.jpg',
     images: ['/RopaSegundaMano.jpg', '/RopaSegundaMano.jpg', '/RopaSegundaMano.jpg'],
     location: 'Cancún, Quintana Roo',
@@ -148,7 +142,6 @@ export const mockProducts: Product[] = [
     id: '6',
     title: 'Instrumentos Musicales',
     description: 'Guitarra acústica y ukelele en buen estado. Perfectos para principiantes o músicos experimentados.',
-    price: '$1,200',
     image: '/InstrumentosMusicales.webp',
     images: ['/InstrumentosMusicales.webp', '/InstrumentosMusicales.webp', '/InstrumentosMusicales.webp'],
     location: 'Tijuana, Baja California',
@@ -160,7 +153,6 @@ export const mockProducts: Product[] = [
     id: '7',
     title: 'Plantas de Interior',
     description: 'Colección de plantas de interior saludables. Incluye suculentas, pothos y monstera.',
-    price: '$350',
     image: '/PlantasInterior.jpg',
     images: ['/PlantasInterior.jpg', '/PlantasInterior.jpg', '/PlantasInterior.jpg'],
     location: 'Mérida, Yucatán',
@@ -172,7 +164,6 @@ export const mockProducts: Product[] = [
     id: '8',
     title: 'Muebles de Jardín',
     description: 'Set de sillas y mesa de jardín de metal. Perfecto para espacios exteriores. Incluye cojines.',
-    price: '$1,500',
     image: '/MueblesJardin.jpg',
     images: ['/MueblesJardin.jpg', '/MueblesJardin.jpg', '/MueblesJardin.jpg'],
     location: 'Querétaro, Querétaro',

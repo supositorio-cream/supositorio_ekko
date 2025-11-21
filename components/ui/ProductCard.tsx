@@ -35,11 +35,6 @@ export interface ProductCardProps {
   location?: string;
   
   /**
-   * Precio del producto
-   */
-  price?: string;
-  
-  /**
    * Estado del producto (ej: "Disponible", "Reservado")
    */
   status?: string;
@@ -69,7 +64,6 @@ export interface ProductCardProps {
  *   image="/product.jpg"
  *   title="Producto ejemplo"
  *   location="Ciudad, País"
- *   price="$50"
  *   status="Disponible"
  *   onClick={handleClick}
  * />
@@ -79,7 +73,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   image,
   title,
   location,
-  price,
   status,
   onClick,
   className = '',
@@ -116,12 +109,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             />
             <span className="font-regular">{location}</span>
           </div>
-        )}
-        
-        {price && (
-          <p className="font-bold text-lg text-primary mt-2">
-            {price}
-          </p>
         )}
       </div>
     </Card>

@@ -106,7 +106,6 @@ export default function ProfilePage() {
                   image={product.image}
                   title={product.title}
                   location={product.location}
-                  price={product.price}
                   status={product.status === 'disponible' ? 'Disponible' : product.status === 'reservado' ? 'Reservado' : 'Vendido'}
                   onClick={() => {}}
                   alt={product.title}
