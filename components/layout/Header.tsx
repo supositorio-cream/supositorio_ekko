@@ -161,6 +161,37 @@ export const Header: React.FC = () => {
                   </button>
                 );
               })}
+              
+              {/* Separador */}
+              <div className="border-t border-border my-1"></div>
+              
+              {/* Botón de Ayuda */}
+              <button
+                onClick={() => handleMenuItemClick(ROUTES.HELP)}
+                className={`
+                  flex items-center gap-3
+                  px-4 py-4
+                  min-h-[44px]
+                  text-left
+                  transition-colors duration-200
+                  touch-target
+                  ${
+                    pathname === ROUTES.HELP
+                      ? 'bg-primary text-white'
+                      : 'text-text-primary hover:bg-surface'
+                  }
+                `}
+                aria-label="Ayuda"
+                aria-current={pathname === ROUTES.HELP ? 'page' : undefined}
+              >
+                <Icon
+                  icon={getIcon('settings')}
+                  size={20}
+                  color={pathname === ROUTES.HELP ? 'white' : 'dark-green'}
+                  aria-label="Ayuda icono"
+                />
+                <span className="font-regular text-base">Ayuda</span>
+              </button>
             </div>
         </nav>
       )}

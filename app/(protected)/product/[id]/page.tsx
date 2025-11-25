@@ -140,6 +140,46 @@ export default function ProductPage({ params }: ProductPageProps) {
         </Link>
       </section>
 
+      {/* Sección de intercambio */}
+      <section className="bg-white rounded-lg p-4 mb-6" aria-label="Intercambio deseado">
+        <h3 className="font-bold text-base text-text-primary mb-3">
+          Me interesa cambiar por...
+        </h3>
+        <p className="font-regular text-base text-text-primary bg-surface rounded-lg p-3 border-l-4 border-primary">
+          {(() => {
+            // Lista de objetos aleatorios para trueque
+            const tradeItems = [
+              'Libros de jardinería',
+              'Herramientas de carpintería',
+              'Plantas de exterior',
+              'Muebles de madera reciclada',
+              'Bicicleta de montaña',
+              'Instrumentos musicales',
+              'Ropa vintage',
+              'Macetas de terracota',
+              'Mesa de centro',
+              'Lámparas de diseño',
+              'Alfombras ecológicas',
+              'Juguetes educativos',
+              'Equipo de camping',
+              'Cámaras vintage',
+              'Vinilos y discos',
+              'Arte decorativo',
+              'Vasos y tazas de cerámica',
+              'Cestas de mimbre',
+              'Espejos antiguos',
+              'Cojines artesanales',
+            ];
+            
+            // Usar el ID del producto para generar un índice determinístico
+            // Esto asegura que el mismo producto siempre muestre el mismo objeto
+            const productIdNum = parseInt(product.id) || 1;
+            const randomIndex = (productIdNum - 1) % tradeItems.length;
+            return tradeItems[randomIndex];
+          })()}
+        </p>
+      </section>
+
       {/* Formulario de mensaje */}
       <section className="bg-white rounded-lg p-4 mb-8" aria-label="Enviar mensaje al vendedor">
         <h3 className="font-bold text-base text-text-primary mb-3">

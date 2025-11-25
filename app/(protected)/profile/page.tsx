@@ -10,14 +10,24 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Avatar, Button, ProductCard, Icon } from '@/components/ui';
 import { currentUser, getProductsByUserId } from '@/lib/mockData';
 import { getIcon } from '@/lib/icons';
 import { ROUTES } from '@/lib/constants';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const { logout } = useAuth();
+  
   // Obtener productos del usuario actual
   const userProducts = getProductsByUserId(currentUser.id);
+
+  const handleLogout = () => {
+    logout();
+    router.push(ROUTES.LOGIN);
+  };
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -48,27 +58,23 @@ export default function ProfilePage() {
 
         {/* Botones de acción */}
         <div className="flex flex-col gap-3 pt-4 border-t border-border">
-          <button
-            className="flex items-center gap-3 p-3 hover:bg-surface rounded-lg transition-colors"
-            onClick={() => {
-              // En una implementación real, abrir configuración
-            }}
-          >
-            <Icon
-              icon={getIcon('settings')}
-              size={20}
-              color="dark-green"
-            />
-            <span className="font-regular text-base text-text-primary">
-              Configuración
-            </span>
-          </button>
+          <Link href={ROUTES.SETTINGS}>
+            <button
+              className="flex items-center gap-3 p-3 hover:bg-surface rounded-lg transition-colors w-full text-left"
+            >
+              <Icon
+                icon={getIcon('settings')}
+                size={20}
+                color="dark-green"
+              />
+              <span className="font-regular text-base text-text-primary">
+                Configuración
+              </span>
+            </button>
+          </Link>
           <button
             className="flex items-center gap-3 p-3 hover:bg-surface rounded-lg transition-colors text-left"
-            onClick={() => {
-              // En una implementación real, cerrar sesión
-              window.location.href = ROUTES.LOGIN;
-            }}
+            onClick={handleLogout}
           >
             <Icon
               icon={getIcon('logout')}
@@ -118,15 +124,14 @@ export default function ProfilePage() {
             <p className="font-regular text-base text-text-secondary mb-4">
               Aún no has publicado ningún producto
             </p>
-            <Button
-              variant="primary"
-              onClick={() => {
-                // En una implementación real, abrir modal de crear producto
-              }}
-              aria-label="Publicar nuevo producto"
-            >
-              Publicar Producto
-            </Button>
+            <Link href={ROUTES.PRODUCT_NEW}>
+              <Button
+                variant="primary"
+                aria-label="Publicar nuevo producto"
+              >
+                Publicar Producto
+              </Button>
+            </Link>
           </div>
         )}
       </section>

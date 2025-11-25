@@ -10,8 +10,11 @@ export const ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
   PRODUCT: "/product",
+  PRODUCT_NEW: "/product/new",
   CHAT: "/chat",
   PROFILE: "/profile",
+  HELP: "/help",
+  SETTINGS: "/settings",
 } as const;
 
 // Rutas completas para páginas protegidas
